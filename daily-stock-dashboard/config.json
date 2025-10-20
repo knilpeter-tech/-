@@ -1,0 +1,40 @@
+{
+  "title": "주식 데일리 대시보드",
+  "timezone": "Asia/Seoul",
+  "tickers": [
+    {
+      "symbol": "005930.KS",
+      "name": ""
+    },
+    {
+      "symbol": "000660.KS",
+      "name": ""
+    },
+    {
+      "symbol": "035420.KS",
+      "name": ""
+    },
+    {
+      "symbol": "105560.KS",
+      "name": ""
+    },
+    {
+      "symbol": "AAPL",
+      "name": ""
+    },
+    {
+      "symbol": "MSFT",
+      "name": ""
+    },
+    {
+      "symbol": "NVDA",
+      "name": ""
+    },
+    {
+      "symbol": "KO",
+      "name": ""
+    }
+  ],
+  "krx_hint": "KRX 종목은 yfinance에서 보통 .KS(코스피), .KQ(코스닥) 접미사를 붙입니다. 예) 005930.KS",
+  "notes": "필요 시 tickers에 표시명(name)을 채우면 테이블에 반영됩니다."
+}

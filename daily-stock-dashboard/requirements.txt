@@ -1,0 +1,4 @@
+pandas
+yfinance
+jinja2
+pytz

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif; margin: 24px; }
+    h1 { margin-bottom: 6px; }
+    .meta { color:#666; margin-bottom: 16px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border-bottom: 1px solid #eee; padding: 10px; text-align: right; }
+    th:first-child, td:first-child { text-align: left; }
+    .pos { color: #0a7; font-weight: 600; }
+    .neg { color: #d33; font-weight: 600; }
+    .chip { padding: 2px 8px; border-radius: 999px; background: #f3f4f6; }
+  </style>
+</head>
+<body>
+  <h1>{{ title }}</h1>
+  <div class="meta">업데이트: {{ updated_at }}</div>
+  <table>
+    <thead>
+      <tr>
+        <th>티커</th>
+        <th>이름</th>
+        <th>가격</th>
+        <th>등락</th>
+        <th>등락률</th>
+        <th>TTM 배당수익률</th>
+        <th>다음 배당락(가능시)</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for r in rows %}
+      <tr>
+        <td><span class="chip">{{ r.symbol }}</span></td>
+        <td style="text-align:left">{{ r.name }}</td>
+        <td>{{ "%.2f"|format(r.price) if r.price is not none else "-" }}</td>
+        <td class="{{ 'pos' if r.change and r.change>0 else 'neg' if r.change and r.change<0 else '' }}">
+          {% if r.change is not none %}{{ ("%+.2f"|format(r.change)) }}{% else %}-{% endif %}
+        </td>
+        <td class="{{ 'pos' if r.changepct and r.changepct>0 else 'neg' if r.changepct and r.changepct<0 else '' }}">
+          {% if r.changepct is not none %}{{ ("%+.2f%%"|format(r.changepct)) }}{% else %}-{% endif %}
+        </td>
+        <td>
+          {% if r.ttm_yield is not none and r.ttm_yield==r.ttm_yield %}{{ ("%.2f%%"|format(r.ttm_yield*100)) }}{% else %}-{% endif %}
+        </td>
+        <td>{{ r.ex_div_date if r.ex_div_date else "-" }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <p style="margin-top:20px;color:#666;font-size:14px">
+    ※ KRX 종목은 yfinance에서 .KS(코스피) / .KQ(코스닥) 접미사를 사용합니다. 예: 005930.KS
+  </p>
+</body>
+</html>
